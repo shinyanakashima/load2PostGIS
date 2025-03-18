@@ -1,0 +1,9 @@
+version: "3"
+services:
+  gdal-postgis:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./data:/data
+    network_mode: "host"
