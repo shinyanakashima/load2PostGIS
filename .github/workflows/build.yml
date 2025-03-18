@@ -33,7 +33,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/shinyanakashima/load2postgis
 
       - name: Build and push Docker image
         id: push
@@ -41,12 +41,12 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ steps.meta.outputs.tags }},${{ env.REGISTRY }}/shinyanakashima/load2postgis:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation # SLSA用
         uses: actions/attest-build-provenance@v2
         with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          subject-name: ${{ env.REGISTRY }}/shinyanakashima/load2postgis
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
